@@ -1,4 +1,5 @@
 import os
+from file import check_file
 
 TODO = "todo"
 DONE = "done"
@@ -121,19 +122,6 @@ def complete_char_from_num(number, string):
     for line in lines:
         if number in line:
             complete_character(line.split()[1])
-
-def check_file():
-    if not os.path.exists(FILENAME):
-        with open(FILENAME, "w+"): pass
-    lines = open(FILENAME).readlines()
-    for line in lines:
-        if len(line.split()) != LINE_LENGTH:
-            print("FILE ILL FORMED\nPress any key...")
-            input("")
-            exit()
-    file = open(FILENAME).read()
-    with open(FILENAME, "w") as out:
-        out.write(file.rstrip() + "\n")
 
 def ask_complete():
     print("Here is the list of remaining characters : ")
