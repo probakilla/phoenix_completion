@@ -2,6 +2,7 @@ import os
 from file import add_character, check_file, complete_character, FILENAME
 from file import flush_file, get_all_characters, get_todos, remove_from_file
 from file import reset, format_name
+from counter import counter_home
 
 MAX_LINE_LENGTH = 32
 
@@ -9,6 +10,7 @@ PROMPT = "> "
 INPUT_ERROR = "Invalid input"
 
 ADD_CHAR = "A"
+ADD_CPT = "C"
 DELETE = "D"
 FLUSH = "F"
 MARK = "M"
@@ -19,7 +21,7 @@ EMPTY = ""
 YES = "Y"
 NO = "N"
 
-LIST_CHOICES = [ADD_CHAR, DELETE, FLUSH,MARK, RESET, QUIT]
+LIST_CHOICES = [ADD_CHAR, ADD_CPT, DELETE, FLUSH,MARK, RESET, QUIT]
 RESET_CHOICES = [EMPTY, YES, NO]
 YES_CHOICE = [EMPTY, YES]
 
@@ -91,18 +93,17 @@ def ask_mark():
 
 
 def ask_action():
-    print("Here is the list of remaining characters : ", end="")
-    print(get_todos()[0] + "\n")
     print("What do you want to do ?")
     print(format_name("\t" + ADD_CHAR + ") Add a new character in file ",
         MAX_LINE_LENGTH), end="")
-    print(format_name("\t" + DELETE + ") Delete a character", MAX_LINE_LENGTH),
-        end="")
-    print(format_name("\t" + FLUSH + ") Flush all characters", MAX_LINE_LENGTH))
+    print(format_name("\t" + ADD_CPT + ") Manage counters",
+        MAX_LINE_LENGTH), end="")
+    print(format_name("\t" + DELETE + ") Delete a character", MAX_LINE_LENGTH))
+    print(format_name("\t" + FLUSH + ") Flush all characters", MAX_LINE_LENGTH),
+         end="")
     print(format_name("\t" + MARK + ") Mark a character as DONE",
         MAX_LINE_LENGTH), end="")
-    print(format_name("\t" + RESET + ") Reset characters", MAX_LINE_LENGTH),
-        end="")
+    print(format_name("\t" + RESET + ") Reset characters", MAX_LINE_LENGTH))
     print(format_name("\t" + QUIT+  ") Quit", MAX_LINE_LENGTH))
     while True:
         choice = input(PROMPT)
@@ -114,6 +115,8 @@ def ask_action():
         print(error)
     if choice.upper() == ADD_CHAR:
         return ask_char_name()
+    elif choice.upper() == ADD_CPT:
+        return counter_home()
     elif choice.upper() == FLUSH:
         flush_file()
         return choice
